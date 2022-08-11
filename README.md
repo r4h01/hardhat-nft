@@ -1,14 +1,12 @@
 <br/>
 <p align="center">
-<a href="https://chain.link" target="_blank">
-<img src="./box-img-lg.png" width="225" alt="Chainlink Hardhat logo">
+<a href="" target="_blank">
+<img src="./95141406.jfif" width="225" alt="">
 </a>
 </p>
 <br/>
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/smartcontractkit/hardhat-starter-kit)
 
-- [Chainlink Hardhat Starter Kit](#chainlink-hardhat-starter-kit)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Quickstart](#quickstart)
@@ -17,37 +15,11 @@
   - [Deploying Contracts](#deploying-contracts)
   - [Run a Local Network](#run-a-local-network)
   - [Using a Testnet or Live Network (like Mainnet or Polygon)](#using-a-testnet-or-live-network-like-mainnet-or-polygon)
-    - [Rinkeby Ethereum Testnet Setup](#rinkeby-ethereum-testnet-setup)
-  - [Forking](#forking)
-  - [Auto-Funding](#auto-funding)
-- [Test](#test)
-- [Interacting with Deployed Contracts](#interacting-with-deployed-contracts)
-  - [Chainlink Price Feeds](#chainlink-price-feeds)
-  - [Request & Receive Data](#request--receive-data)
-  - [VRF Get a random number](#vrf-get-a-random-number)
-  - [Keepers](#keepers)
-  - [Verify on Etherscan](#verify-on-etherscan)
-- [View Contracts Size](#view-contracts-size)
-- [Linting](#linting)
-- [Code Formating](#code-formating)
-- [Estimaging Gas](#estimaging-gas)
-- [Code Coverage](#code-coverage)
-- [Fuzzing](#fuzzing)
-- [Contributing](#contributing)
-- [Thank You!](#thank-you)
-  - [Resources](#resources)
+- [Contracts](#Contracts)
 
-# Chainlink Hardhat Starter Kit
- Implementation of the following 4 Chainlink features using the [Hardhat](https://hardhat.org/) development environment:
- - [Chainlink Price Feeds](https://docs.chain.link/docs/using-chainlink-reference-contracts)
- - [Chainlink VRF](https://docs.chain.link/docs/chainlink-vrf)
- - [Chainlink Keepers](https://docs.chain.link/docs/chainlink-keepers/introduction/)
- - [Request & Receive data](https://docs.chain.link/docs/request-and-receive-data)
+<br />
 
-# Getting Started 
-
-It's recommended that you've gone through the [hardhat getting started documentation](https://hardhat.org/getting-started/) before proceeding here. 
-
+# Getting Started
 ## Requirements
 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
@@ -66,13 +38,8 @@ It's recommended that you've gone through the [hardhat getting started documenta
 
 1. Clone and install dependencies
 
-After installing all the requirements, run the following:
+run the following:
 
-```bash
-git clone https://github.com/smartcontractkit/hardhat-starter-kit/
-cd hardhat-starter-kit
-```
-Then:
 ```
 yarn
 ```
@@ -180,238 +147,14 @@ export PRIVATE_KEY='abcdef'
 
 For other networks like mainnet and polygon, you can use different environment variables for your RPC URL and your private key. See the `hardhat.config.js` to learn more. 
 
-3. Get some Rinkeby Testnet ETH and LINK 
 
-Head over to the [Chainlink faucets](https://faucets.chain.link/) and get some ETH and LINK. Please follow [the chainlink documentation](https://docs.chain.link/docs/acquire-link/) if unfamiliar. 
+<br />
 
-4. Create VRF V2 subscription
 
-Head over to [VRF Subscription Page](https://vrf.chain.link/rinkeby) and create the new subscription. Save your subscription ID and put it in `.env` file as `VRF_SUBSCRIPTION_ID`
+# Contracts
 
-5. Running commands
+We will create three contracts:
 
-You should now be all setup! You can run any command and just pass the `--network rinkeby` now!
-
-To deploy contracts:
-
-```
-yarn hardhat deploy --network rinkeby
-```
-
-To run staging testnet tests
-```
-yarn hardhat test --network rinkeby
-```
-
-## Forking 
- 
-If you'd like to run tests or on a network that is a [forked network](https://hardhat.org/hardhat-network/guides/mainnet-forking.html)
-1. Set a `MAINNET_RPC_URL` environment variable that connects to the mainnet.
-2. Choose a block number to select a state of the network you are forking and set it as `FORKING_BLOCK_NUMBER` environment variable. If ignored, it will use the latest block each time which can lead to test inconsistency.
-3. Set `enabled` flag to `true`/`false` to enable/disable forking feature
-```
-      forking: {
-        url: MAINNET_RPC_URL,
-        blockNumber: FORKING_BLOCK_NUMBER,
-        enabled: false,
-      }
-```
-
-
-## Auto-Funding
-
-This Starter Kit is configured by default to attempt to auto-fund any newly deployed contract that uses Any-API, to save having to manually fund them after each deployment. The amount in LINK to send as part of this process can be modified in the [Starter Kit Config](helper-hardhat-config.js), and are configurable per network.
-
-| Parameter  | Description                                       | Default Value |
-| ---------- | :------------------------------------------------ | :------------ |
-| fundAmount | Amount of LINK to transfer when funding contracts | 0.1 LINK      |
-
-If you wish to deploy the smart contracts without performing the auto-funding, add an `AUTO_FUND` environment variable, and set it to false. 
-
-
-# Test
-Tests are located in the [test](./test/) directory, and are split between unit tests and staging/testnet tests. Unit tests should only be run on local environments, and staging tests should only run on live environments.
-
-To run unit tests:
-
-```bash
-yarn test
-```
-or
-```
-yarn hardhat test
-```
-
-To run staging tests on Rinkeby network:
-
-```bash
-yarn test-staging
-```
-
-or
-
-```
-yarn hardhat test --network rinkeby
-```
-
-## Performance optimizations
-
-Since all tests are written in a way to be independent from each other, you can save time by running them in parallel. Make sure that `AUTO_FUND=false` inside `.env` file. There are some limitations with parallel testing, read more about them [here](https://hardhat.org/guides/parallel-tests.html)
-
-To run tests in parallel:
-```
-yarn test --parallel
-```
-or
-```
-yarn hardhat test --parallel
-```
-
-# Interacting with Deployed Contracts
-
-After deploying your contracts, the deployment output will give you the contract addresses as they are deployed. You can then use these contract addresses in conjunction with Hardhat tasks to perform operations on each contract.
-
-
-## Chainlink Price Feeds
-The Price Feeds consumer contract has one task, to read the latest price of a specified price feed contract
-
-```bash
-yarn hardhat read-price-feed --contract insert-contract-address-here --network network
-```
-
-## Request & Receive Data
-The APIConsumer contract has two tasks, one to request external data based on a set of parameters, and one to check to see what the result of the data request is. This contract needs to be funded with link first:
-
-```bash
-yarn hardhat fund-link --contract insert-contract-address-here --network network
-```
-
-Once it's funded, you can request external data by passing in a number of parameters to the request-data task. The contract parameter is mandatory, the rest are optional
-
-```bash
-yarn hardhat request-data --contract insert-contract-address-here --network network
-```
-
-Once you have successfully made a request for external data, you can see the result via the read-data task
-```bash
-yarn hardhat read-data --contract insert-contract-address-here --network network
-```
-
-
-## VRF Get a random number
-The VRFConsumer contract has two tasks, one to request a random number, and one to read the result of the random number request. To start, go to [VRF Subscription Page](https://vrf.chain.link/rinkeby) and create the new subscription. Save your subscription ID and put it in `.env` file as `VRF_SUBSCRIPTION_ID`:
-
-```bash
-VRF_SUBSCRIPTION_ID=subscription_id
-```
-
-Then, deploy your VRF V2 contract consumer to the network of your recent subscription using subscription id as constructor argument.
-
-```bash
-yarn hardhat deploy --network network   
-```
-
-Finally, you need to go to your subscription page one more time and add the address of deployed contract as a new consumer. Once that's done, you can perform a VRF request with the request-random-number task:
-
-```bash
-yarn hardhat request-random-number --contract insert-contract-address-here --network network
-```
-
-Once you have successfully made a request for a random number, you can see the result via the read-random-number task:
-
-```bash
-yarn hardhat read-random-number --contract insert-contract-address-here --network network
-```
-
-## Keepers
-The KeepersCounter contract is a simple Chainlink Keepers enabled contract that simply maintains a counter variable that gets incremented each time the performUpkeep task is performed by a Chainlink Keeper. Once the contract is deployed, you should head to [https://keepers.chain.link/](https://keepers.chain.link/) to register it for upkeeps, then you can use the task below to view the counter variable that gets incremeneted by Chainlink Keepers
-
-
-```bash
-yarn hardhat read-keepers-counter --contract insert-contract-address-here --network network
-```
-
-## Verify on Etherscan
-
-You'll need an `ETHERSCAN_API_KEY` environment variable. You can get one from the [Etherscan API site.](https://etherscan.io/apis). If you have it set, your deploy script will try to verify them by default, but if you want to verify any manually, you can run: 
-
-```
-yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
-```
-example:
-
-```
-yarn hardhat verify --network rinkeby 0x9279791897f112a41FfDa267ff7DbBC46b96c296 "0x9326BFA02ADD2366b30bacB125260Af641031331"
-```
-
-# View Contracts Size
-
-```
-yarn run hardhat size-contracts
-```
-
-# Linting
-
-This will [lint](https://stackoverflow.com/questions/8503559/what-is-linting) your smart contracts.  
-
-```
-yarn lint:fix
-```
-
-# Code Formating
-
-This will format both your javascript and solidity to look nicer. 
-
-```
-yarn format
-```
-
-# Estimaging Gas
-
-To estimate gas, just set a `REPORT_GAS` environment variable to true, and then run:
-
-```
-yarn hardhat test
-```
-
-If you'd like to see the gas prices in USD or other currency, add a `COINMARKETCAP_API_KEY` from [Coinmarketcap](https://coinmarketcap.com/api/documentation/v1/).
-
-# Code coverage
-
-To see a measure in percent of the degree to which the smart contract source code is executed when a particular test suite is run, type
-```
-yarn coverage
-```
-
-# Fuzzing
-
-We are going to use Echidna as a Fuzz testing tool. You need to have [Docker](https://www.docker.com/) installed with at least 8GB virtual memory allocated (To update this parameter go to _Settings->Resources->Advanced->Memory_). 
-
-To start Echidna instance run
-
-```
-yarn fuzzing
-```
-
-If you are using it for the first time, you will need to wait for Docker to download [eth-security-toolbox](https://hub.docker.com/r/trailofbits/eth-security-toolbox) image for us.
-
-To start Fuzzing run
-```
-echidna-test /src/contracts/test/fuzzing/KeepersCounterEchidnaTest.sol --contract KeepersCounterEchidnaTest --config /src/contracts/test/fuzzing/config.yaml
-```
-
-To exit Echidna type
-```bash
-exit
-```
-
-# Contributing
-
-Contributions are always welcome! Open a PR or an issue!
-
-# Thank You!
-
-## Resources
-
-- [Chainlink Documentation](https://docs.chain.link/)
-- [Hardhat Documentation](https://hardhat.org/getting-started/)
+1. Basic NFT
+2. Random IPFS NFT
+3. Dynamic SVG NFT
