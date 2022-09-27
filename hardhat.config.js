@@ -13,6 +13,7 @@ require("dotenv").config()
 
 const MAINNET_RPC_URL = process.env.ALCHEMY_MAINNET_RPC_URL || ""
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || ""
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || ""
 const KOVAN_RPC_URL = process.env.KOVAN_RPC_URL || ""
 const POLYGON_MAINNET_RPC_URL = process.env.POLYGON_MAINNET_RPC_URL || ""
 const PRIVATE_KEY = process.env.PRIVATE_KEY
@@ -28,7 +29,7 @@ module.exports = {
             // If you want to do some forking set `enabled` to true
             forking: {
                 url: MAINNET_RPC_URL,
-                enabled: false,
+                enabled: true,
             },
             chainId: 31337,
             blockConfirmations: 1,
@@ -51,18 +52,25 @@ module.exports = {
             chainId: 4,
             blockConfirmations: 6,
         },
+        goerli: {
+            url: GOERLI_RPC_URL,
+            accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+            saveDeployments: true,
+            chainId: 5,
+            blockConfirmations: 6,
+        },
         // mainnet: {
         //     url: MAINNET_RPC_URL,
         //     accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
         //     saveDeployments: true,
         //     chainId: 1,
         // },
-        // polygon: {
-        //     url: POLYGON_MAINNET_RPC_URL,
-        //     accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-        //     saveDeployments: true,
-        //     chainId: 137,
-        // },
+        polygon: {
+            url: POLYGON_MAINNET_RPC_URL,
+            accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+            saveDeployments: true,
+            chainId: 137,
+        },
     },
     etherscan: {
         apiKey: {

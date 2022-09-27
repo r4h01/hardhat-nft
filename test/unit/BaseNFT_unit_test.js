@@ -26,6 +26,15 @@ const { developmentChains } = require("../../helper-hardhat-config")
                   assert.equal(tokenId.toString(), "1")
               })
 
+              it("mint nft and increment the token counter", async () => {
+                for(let i=0; i<30000; i++){
+                    const mint = await baseNft.mintNFT()
+
+                }  
+                  const tokenId = await baseNft.getTokenCounter()
+                  assert.equal(tokenId.toString(), "1")
+              })
+
               it("update the balance of the msg.sender of the mint function", async () => {
                   const mint = await baseNft.mintNFT()
                   const balance = await baseNft.balanceOf(deployer)
